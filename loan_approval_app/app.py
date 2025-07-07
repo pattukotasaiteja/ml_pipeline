@@ -8,10 +8,13 @@ from google.cloud import aiplatform
 # --------------------------------------
 # 1. Load credentials from secrets
 # --------------------------------------
+# Save service account JSON to file
 with open("service_account.json", "w") as f:
-    json.dump(st.secrets["gcp_service_account"], f)
+    json.dump(dict(st.secrets["gcp_service_account"]), f)
 
+# Set the env var
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "service_account.json"
+
 
 # --------------------------------------
 # 2. Init Vertex AI and Endpoint
