@@ -5,11 +5,12 @@ import json
 import tensorflow as tf
 from google.cloud import aiplatform
 
-# 1. Load credentials
-with open("/etc/secrets/service_account.json", "w") as f:
-    f.write(st.secrets["gcp_service_account"])
+# Save service account JSON to file
+with open("service_account.json", "w") as f:
+    json.dump(st.secrets["gcp_service_account"], f)
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/etc/secrets/service_account.json"
+# Set the env var
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "service_account.json"
 
 # 2. Init Vertex AI
 aiplatform.init(project="analog-arbor-464806-n7", location="us-central1")
